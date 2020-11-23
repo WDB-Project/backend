@@ -19,7 +19,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     }
-})
+}, {collection: 'auth'})
 // hash user password before saving into database
 
 module.exports = mongoose.model('User', userSchema)
