@@ -17,34 +17,10 @@ router.get('/', function (req, res) {
     // root path
 })
 
+const eventsRouter = require('./routes/events.js')
+app.use('/events', router);
 
-router.route('/events')
-    .get((req, res) => {
-        // list all events
-    })
-
-router.route('/signup')
-    .get((req, res) => {
-        // get a list of future events
-    })
-    .post((req, res) => {
-        // sign up for a particular event
-    })
-
-router.route('/create')
-    .post((req, res) => {
-        // create a particular event
-    })
-    .post((req, res) => {
-        // close an event
-    })
-    .delete((req, res) => {
-        // delete an event
-    })
-
-app.use('/', router);
-
-const authRouter = require('./routes/auth')
+const authRouter = require('./routes/auth.js')
 app.use('/auth', authRouter)
 
 app.listen(port, () => {
