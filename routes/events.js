@@ -15,7 +15,7 @@ router.route('/create')
 
 //temporary way to get events for frontend, prolly need a more robust way to get events than using the name
 router.route('/get')
-    .get((req, res) => {
+    .post((req, res) => {
         const name = req.body.name
         Event.findOne({"name" : name}, (err, Event) => {
             if (err) console.log(err)
