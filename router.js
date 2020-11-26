@@ -12,13 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 mongoose.connect(url, { useNewUrlParser: true })
 
-
 router.get('/', function (req, res) {
-    // root path
+    console.log("sup")
 })
 
 const eventsRouter = require('./routes/events.js')
-app.use('/events', router);
+app.use('/events', eventsRouter);
 
 const authRouter = require('./routes/auth.js')
 app.use('/auth', authRouter)

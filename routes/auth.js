@@ -10,7 +10,7 @@ router.route('/register')
     .post((req, res) => {
         bcrypt.hash(req.body.password, saltRounds, function(err, hashedPwd) {
             if (err) {
-                res.json({error: err})
+                res.json({error: err, message: "encryption error"})
             }
             else {
                 const user = new User({
@@ -22,7 +22,7 @@ router.route('/register')
 
                 user.save((err)=>{
                     if (err){
-                        res.json({error: err})
+                        res.json({error: err, message: ""})
                     }else{
                         res.redirect('./login');
                     }
