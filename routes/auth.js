@@ -4,7 +4,11 @@ const mongoose = require('mongoose')
 const User = require('../models/User')
 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+
+// TODO: save this secret in some environment variable that isn't public (or obfuscate code)
+const secretKey = "randomSecretVal"
 
 router.route('/register')
     .post((req, res) => {
@@ -47,7 +51,10 @@ router.route('/login')
                         res.json({error: err})
                     } else {
                         if (correct) {
-                            res.json({message: "Success!"})
+                            // res.json({message: "Success!"})
+                            jwt.sign({username: req.body.username}, secretKey, (err, token) => {
+                                res.json({message: "Success!", token: token})
+                            })
                         } else {
                             res.json({error: "Incorrect Password!"})
                         }

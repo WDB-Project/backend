@@ -7,17 +7,13 @@ const app = express()
 const port = process.env.PORT || 3000
 
 const db = mongoose.connection
+const localUrl = 'mongodb://127.0.0.1:27017/upandcoming'
+
 const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-<<<<<<< HEAD
-mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
-=======
-
-
-mongoose.connect(url, { useNewUrlParser: true })
->>>>>>> b04ebd859b266cc4afd2291e58ce803d53a2cd19
+mongoose.connect(localUrl, { useUnifiedTopology: true, useNewUrlParser: true })
 
 router.get('/', function (req, res) {
     console.log("sup")

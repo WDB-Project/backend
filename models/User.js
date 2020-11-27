@@ -18,8 +18,12 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true
+    },
+    events: {
+        type: [String],
+        required: false,
     }
-}, {collection: 'auth'})
+}, {collection: 'authCollection'})
 // hash user password before saving into database
 
 module.exports = mongoose.model('User', userSchema)
