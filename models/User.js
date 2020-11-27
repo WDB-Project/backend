@@ -24,6 +24,5 @@ const userSchema = new Schema({
         required: false,
     }
 }, {collection: 'authCollection'})
-// hash user password before saving into database
-
+// renamed to authCollection because of conflicts with mongo internal function
 module.exports = mongoose.model('User', userSchema)
