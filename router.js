@@ -11,7 +11,13 @@ const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volu
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+<<<<<<< HEAD
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
+=======
+
+
+mongoose.connect(url, { useNewUrlParser: true })
+>>>>>>> b04ebd859b266cc4afd2291e58ce803d53a2cd19
 
 router.get('/', function (req, res) {
     console.log("sup")

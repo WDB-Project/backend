@@ -55,4 +55,28 @@ router.route('/get')
 
 module.exports = router
 
+// temp
+router.route('/get')
+    .post((req, res) => {
+        const eventID = req.body.id
+        Event.findOne({"_id" : eventID}, (err, Event) => {
+            if (err) console.log(err)
+            res.json(Event)
+        })
+    })
 
+//add volunteers
+router.route('/add_volunteer')
+    .put((req, res) => {
+        var eventID = req.body.id,  volunteers = req.body.volunteers
+        Event.findOneAndUpdate({'_id' : eventID}, {'volunteers': volunteers}, (err, result) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.json(result)
+            }
+        })
+    })
+    
+    
+module.exports = router
