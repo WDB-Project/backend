@@ -51,8 +51,7 @@ router.route('/login')
                         res.json({error: err})
                     } else {
                         if (correct) {
-                            // res.json({message: "Success!"})
-                            jwt.sign({username: req.body.username}, secretKey, (err, token) => {
+                            jwt.sign({uid: user.id}, secretKey, (err, token) => {
                                 res.json({message: "Success!", token: token})
                             })
                         } else {
@@ -65,5 +64,7 @@ router.route('/login')
         
     }
 )
+
+
 
 module.exports = router

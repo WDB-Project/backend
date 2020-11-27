@@ -55,8 +55,6 @@ router.route('/get')
     })
 
 
-module.exports = router
-
 // temp
 router.route('/get')
     .post((req, res) => {

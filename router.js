@@ -25,6 +25,9 @@ app.use('/events', eventsRouter);
 const authRouter = require('./routes/auth.js')
 app.use('/auth', authRouter)
 
+const profileRouter = require('./routes/profile.js')
+app.use('/profile', profileRouter)
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
