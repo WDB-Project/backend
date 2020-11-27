@@ -10,6 +10,8 @@ const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volu
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+
 mongoose.connect(url, { useNewUrlParser: true })
 
 router.get('/', function (req, res) {

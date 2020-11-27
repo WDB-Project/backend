@@ -22,6 +22,19 @@ router.route('/get')
             res.json(Event)
         })
     })
+
+
+router.route('/add_volunteer')
+    .put((req, res) => {
+        var eventID = req.body.id,  volunteers = req.body.volunteers
+        Event.findOneAndUpdate({'_id' : eventID}, {'volunteers': volunteers}, (err, result) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.json(result)
+            }
+        })
+    })
+    
+    
 module.exports = router
-
-
