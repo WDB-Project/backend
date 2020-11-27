@@ -13,17 +13,18 @@ router.route('/create')
     })
 
 
-//temporary way to get events for frontend, prolly need a more robust way to get events than using the name
+//temporary reqs for backend, can be improved
+//get event
 router.route('/get')
     .post((req, res) => {
-        const name = req.body.name
-        Event.findOne({"name" : name}, (err, Event) => {
+        const eventID = req.body.id
+        Event.findOne({"_id" : eventID}, (err, Event) => {
             if (err) console.log(err)
             res.json(Event)
         })
     })
 
-
+//add volunteers
 router.route('/add_volunteer')
     .put((req, res) => {
         var eventID = req.body.id,  volunteers = req.body.volunteers
