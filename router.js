@@ -5,12 +5,13 @@ const router = express.Router()
 
 const app = express()
 const port = process.env.PORT || 3000
+
 const db = mongoose.connection
 const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-mongoose.connect(url, { useNewUrlParser: true })
+mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
 
 router.get('/', function (req, res) {
     console.log("sup")
