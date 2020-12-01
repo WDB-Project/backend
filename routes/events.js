@@ -5,6 +5,11 @@ const Event = require('../models/Event');
 
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
+
+router.use('/create', verifyAuthToken)
+router.use('/add_volunteer', verifyAuthToken)
+
+
 router.route('/create')
     .put(function (req, res, next) { // create event
         

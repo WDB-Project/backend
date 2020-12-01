@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000
 
 const db = mongoose.connection
 const localUrl = 'mongodb://127.0.0.1:27017/upandcoming'
+const cors = require('cors')
+
+app.use(cors())
 
 const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 
