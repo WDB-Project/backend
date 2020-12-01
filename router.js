@@ -12,7 +12,7 @@ const cors = require('cors')
 
 app.use(cors())
 
-const url = 'mongodb+srv://vegautam:Mongo314209!@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
+const url = 'mongodb+srv://WDB-Buddies:wdb123@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
