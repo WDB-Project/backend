@@ -30,23 +30,28 @@ router.route('/get')
     
         let searchParams = {}
 
-        if ('name' in req.query) {
-            searchParams['name'] = req.query.name
-        }
-
-        if ('startDate' in req.query) {
-            searchParams['startDate'] = {$gt: Date.parse(req.query.startDate)}
+        if ('id' in req.query) {
+            searchParams['_id'] = req.query.id
         } else {
-            searchParams['startDate'] = {$gt: Date.now()}
-        }
 
-        if ('endDate' in req.query) {
-            searchParams['endDate'] = {$lt: Date.parse(req.query.endDate)}
-        }
+            if ('name' in req.query) {
+                searchParams['name'] = req.query.name
+            }
 
-        if ('all' in req.query & req.query['all'] == "true") {
-            delete searchParams['startDate'], searchParams['endDate']
-        }        
+            if ('startDate' in req.query) {
+                searchParams['startDate'] = {$gt: Date.parse(req.query.startDate)}
+            } else {
+                searchParams['startDate'] = {$gt: Date.now()}
+            }
+
+            if ('endDate' in req.query) {
+                searchParams['endDate'] = {$lt: Date.parse(req.query.endDate)}
+            }
+
+            if ('all' in req.query & req.query['all'] == "true") {
+                delete searchParams['startDate'], searchParams['endDate']
+            }
+        }
 
         Event.find(searchParams, (err, Event) => {
             if (err) {console.log(err)};
