@@ -11,15 +11,13 @@ const localUrl = 'mongodb://127.0.0.1:27017/upandcoming'
 const cors = require('cors')
 
 app.use(cors())
-
+//allow OPTIONS on all resources
+app.options('*', cors())
 const url = 'mongodb+srv://WDB-Buddies:wdb123@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  });
+
   
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
 
