@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const Event = require('../models/Event');
-
+const jwt = require('jsonwebtoken')
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
 
@@ -15,8 +15,8 @@ router.route('/create')
         
         const attributes = req.body
 
-        attributes['startDate'] = Date.parse(req.body.startDate)
-        attributes['endDate'] = Date.parse(req.body.endDate)
+        if (attributes['startDate']) attributes['startDate'] = Date.parse(req.body.startDate)
+        if (attributes['startDate']) attributes['endDate'] = Date.parse(req.body.endDate)
 
         const event = new Event(attributes);
 
@@ -33,7 +33,7 @@ router.route('/create')
 // Return events
 router.route('/get')
     .get((req, res) => {
-        Event.find(req.query, (err, Event) => {
+        Event.find({}, (err, Event) => {
             if (err) {
                 console.log(err)
                 res.sendStatus(404)

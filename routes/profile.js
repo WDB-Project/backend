@@ -22,6 +22,7 @@ router.route('/basic')
 )
 
 
+
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
 // on postman, send in the auth token in the form "Bearer <token>" in the request headers
 function verifyAuthToken(req, res, next) {
