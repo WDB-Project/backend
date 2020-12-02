@@ -69,7 +69,7 @@ router.route('/login')
                         } else {
                             if (correct) {
                                 jwt.sign({uid: user.id}, secretKey, (err, token) => {
-                                    res.status(200).json({message: "success", token: token, userID: user.id})
+                                    res.status(200).json({message: "success", token: token, user: user})
                                 })
                             } else {
                                 res.status(401).json({error: "Incorrect Password!"})
