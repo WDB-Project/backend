@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const router = express.Router()
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3030
 
 const db = mongoose.connection
 const localUrl = 'mongodb://127.0.0.1:27017/upandcoming'
