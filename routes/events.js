@@ -33,7 +33,7 @@ router.route('/create')
 // Return events
 router.route('/get')
     .get((req, res) => {
-        Event.find({}, (err, Event) => {
+        Event.find(req.query, (err, Event) => {
             if (err) {
                 console.log(err)
                 res.sendStatus(404)
