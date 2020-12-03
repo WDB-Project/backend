@@ -46,6 +46,6 @@ const eventSchema = new Schema({
         type: [String],
         required: false,
     }
-}, {collection: 'eventsCollection'})
+}, {collection: 'eventsCollections'})
 
 module.exports = mongoose.model('Event', eventSchema)
