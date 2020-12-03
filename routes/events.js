@@ -6,9 +6,8 @@ const jwt = require('jsonwebtoken')
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
 
-router.use('/create', verifyAuthToken)
-router.use('/add_volunteer', verifyAuthToken)
-
+// router.use('/create', verifyAuthToken)
+// router.use('/add_volunteer', verifyAuthToken)
 
 router.route('/create')
     .post(function (req, res, next) { // create event
@@ -37,8 +36,26 @@ router.route('/get')
             if (err) {
                 console.log(err)
                 res.sendStatus(404)
-            } else {
+            } else if (Event.length == 1) {
+                console.log(`Single value for ID: ${Event[0]._id}`)
                 res.json(Event)
+            } else {
+                const currentDate = Date.now()
+                const allEvents = {
+                    upcoming: [],
+                    ongoing: [],
+                    past: []
+                }
+                for (const event of Event) {
+                    if (event.startDate > currentDate) {
+                        allEvents.upcoming.push(event)
+                    } else if (event.endDate > currentDate) {
+                        allEvents.ongoing.push(event)
+                    } else {
+                        allEvents.past.push(event)
+                    }
+                }
+                res.json(allEvents)
             }
         })
     })
