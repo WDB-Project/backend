@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const User = require('../models/User')
+const Event = require('../models/Event')
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -37,7 +38,25 @@ router.route('/join')
 router.route('/get_events')
     .get((req, res) => {
         User.findById(req.query.id, (err, userProfile) => {
-            res.json(userProfile.events)
+            const currentDate = Date.now()
+            const allEvents = {
+                upcoming: [],
+                ongoing: [],
+                past: []
+            }
+            Event.find({'_id': { $in: userProfile.events}}, (err, Events) => {
+                for (const event of Events) {
+                    if (event.startDate > currentDate) {
+                        allEvents.upcoming.push(event)
+                    } else if (event.endDate > currentDate) {
+                        allEvents.ongoing.push(event)
+                    } else {
+                        allEvents.past.push(event)
+                    }
+                }
+                res.json(allEvents)
+            })
+            
         })
     })
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
