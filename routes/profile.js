@@ -21,6 +21,25 @@ router.route('/basic')
     }
 )
 
+//user joins event
+router.route('/join')
+    .put((req, res) => {
+        User.findOneAndUpdate({'_id' : req.body.id}, {'events': req.body.events}, (err, result) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.json(result)
+            }
+        })
+    })
+
+
+router.route('/get_events')
+    .get((req, res) => {
+        User.findById(req.query.id, (err, userProfile) => {
+            res.json(userProfile.events)
+        })
+    })
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
 // on postman, send in the auth token in the form "Bearer <token>" in the request headers
 function verifyAuthToken(req, res, next) {
