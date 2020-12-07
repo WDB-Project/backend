@@ -6,6 +6,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+const isImageUrl = require('is-image-url');
 
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
@@ -32,6 +33,12 @@ router.route('/register')
                                 realname: req.body.realname,
                                 email: req.body.email
                             })
+                            let picture = req.body.pfp
+                            if (picture != "") {
+                                if (isImageUrl(picture)) {
+                                    user.profilepic = picture
+                                }
+                            }
                             
                             user.save((err)=>{
                                 if (err){

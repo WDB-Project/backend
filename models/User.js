@@ -26,6 +26,11 @@ const userSchema = new Schema({
     myEvents: {
         type: Array,
         required: false
+    },
+    profilepic: {
+        type: String,
+        required: false,
+        default: ""
     }
 }, {collection: 'authCollection'})
 // renamed to authCollection because of conflicts with mongo internal function

@@ -14,10 +14,39 @@ const secretKey = "randomSecretVal"
 router.use(verifyAuthToken)
 
 router.route('/basic')
-    .get((req, res) => {
+    .get(async (req, res) => {
         User.findById(req.user.uid, (err, userProfile) => {
             if (err) res.json(err)
-            res.json(userProfile)
+            const currentDate = Date.now()
+            const allEvents = {
+                upcoming: [],
+                ongoing: [],
+                past: []
+            }
+            Event.find({'_id': { $in: userProfile.events}}, (err, Events) => {
+                for (const event of Events) {
+                    if (event.startDate > currentDate) {
+                        allEvents.upcoming.push(event)
+                    } else if (event.endDate > currentDate) {
+                        allEvents.ongoing.push(event)
+                    } else {
+                        allEvents.past.push(event)
+                    }
+                }
+                Event.find({'_id': {$in: userProfile.myEvents}}, (err, Events2) => {
+                    if (err) {
+                        res.send(err)
+                    } 
+                    obj = {}
+                    obj.userProfile = userProfile;
+                    obj.userEvents = allEvents
+                    obj.myEvents = Events2
+                    console.log(obj)
+                    res.json(obj)
+                })
+            })
+
+
         })
     }
 )
@@ -111,4 +140,6 @@ function verifyAuthToken(req, res, next) {
         return res.sendStatus(403)
     }
 }
+
+
 module.exports = router
