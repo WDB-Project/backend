@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken')
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
 
-router.use('/create', verifyAuthToken)
-router.use('/signup', verifyAuthToken)
+// router.use('/create', verifyAuthToken)
+// router.use('/signup', verifyAuthToken)
 
 router.route('/create')
     .post(function (req, res, next) { // create event
@@ -32,6 +32,21 @@ router.route('/create')
 // Return events
 router.route('/get')
     .get((req, res) => {
+        
+        const query = req.query
+
+        if ('startDate' in req.query) {
+            query['startDate'] = { $gt: req.query.startDate }
+        }
+
+        if ('endDate' in req.query) {
+            query['endDate'] = { $lt: req.query.endDate }
+        }
+        
+        if('tag' in req.query) {
+            query['tag'] = req.query.tag
+        }
+
         Event.find(req.query, (err, Event) => {
             if (err) {
                 console.log(err)
