@@ -22,6 +22,10 @@ const userSchema = new Schema({
     events: {
         type: [String],
         required: false,
+    },
+    myEvents: {
+        type: [String],
+        required: false
     }
 }, {collection: 'authCollection'})
 // renamed to authCollection because of conflicts with mongo internal function

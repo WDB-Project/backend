@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken')
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
 
-// router.use('/create', verifyAuthToken)
-// router.use('/signup', verifyAuthToken)
+router.use('/create', verifyAuthToken)
+router.use('/signup', verifyAuthToken)
 
 router.route('/create')
     .post(function (req, res, next) { // create event
@@ -32,21 +32,6 @@ router.route('/create')
 // Return events
 router.route('/get')
     .get((req, res) => {
-        
-        const query = req.query
-
-        if ('startDate' in req.query) {
-            query['startDate'] = { $gt: req.query.startDate }
-        }
-
-        if ('endDate' in req.query) {
-            query['endDate'] = { $lt: req.query.endDate }
-        }
-        
-        if('tag' in req.query) {
-            query['tag'] = req.query.tag
-        }
-
         Event.find(req.query, (err, Event) => {
             if (err) {
                 console.log(err)
@@ -79,8 +64,8 @@ router.route('/get')
 router.route('/signup')
     .put((req, res) => {
         var eventID = req.body.id
-        var volunteers = req.body.volunteers
-        Event.findOneAndUpdate({'_id' : eventID}, {'volunteers': volunteers}, (err, result) => {
+        var volunteer = req.body.volunteer
+        Event.findByIdAndUpdate({'_id' : eventID}, {$push: {'volunteers': volunteer}}, (err, result) => {
             if (err) {
                 res.send(err)
             } else {
@@ -89,6 +74,17 @@ router.route('/signup')
         })
     })
 
+
+router.route('/leave')
+    .put((req, res) => {
+        Event.findByIdAndUpdate({'_id' : req.body.id}, {$pullAll: { volunteers: [req.body.volunteer]}}, (err, result) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.json(result)
+            }
+        })
+    })
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
 // on postman, send in the auth token in the form "Bearer <token>" in the request headers
 function verifyAuthToken(req, res, next) {
