@@ -50,6 +50,15 @@ router.route('/basic')
         })
     }
 )
+router.route('/basicold')
+    .get((req, res) => {
+        User.findById(req.user.uid, (err, userProfile) => {
+            if (err) res.json(err)
+            res.json(userProfile)
+        })
+    }
+)
+
 
 //user joins event
 router.route('/join')
@@ -58,6 +67,7 @@ router.route('/join')
             if (err) {
                 res.send(err)
             } else {
+                console.log("found")
                 res.json(result)
             }
         })
