@@ -57,11 +57,7 @@ router.route('/get')
             if (err) {
                 console.log(err)
                 res.sendStatus(404)
-<<<<<<< Updated upstream
             } else if (!idQuery) {
-=======
-            } else if (Event.length == 1) {
->>>>>>> Stashed changes
                 console.log(`Single value for ID: ${Event[0]._id}`)
                 res.json(Event)
             } else {
