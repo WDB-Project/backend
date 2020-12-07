@@ -20,12 +20,8 @@ const url = 'mongodb+srv://WDB-Buddies:wdb123@cluster0.dn9qy.mongodb.net/volunte
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-<<<<<<< Updated upstream:server.js
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
-=======
-  
-mongoose.connect(localUrl, { useUnifiedTopology: true, useNewUrlParser: true })
->>>>>>> Stashed changes:router.js
+
 
 router.get('/', function (req, res) {
     res.json({hello : "hello"})
