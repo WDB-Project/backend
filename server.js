@@ -13,17 +13,25 @@ const cors = require('cors')
 app.use(cors())
 app.options('*', cors()) // Allow options on all resources
 
+const localUrl = 'mongodb://127.0.0.1:27017/upandcoming'
 const url = 'mongodb+srv://WDB-Buddies:wdb123@cluster0.dn9qy.mongodb.net/volunteerio?retryWrites=true&w=majority'
 // const url = "mongodb://127.0.0.1:27017/upandcoming"
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+<<<<<<< Updated upstream:server.js
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
+=======
+  
+mongoose.connect(localUrl, { useUnifiedTopology: true, useNewUrlParser: true })
+>>>>>>> Stashed changes:router.js
 
 router.get('/', function (req, res) {
-    console.log("sup")
+    res.json({hello : "hello"})
 })
+
+app.use("/", router)
 
 const eventsRouter = require('./routes/events.js')
 app.use('/events', eventsRouter);
