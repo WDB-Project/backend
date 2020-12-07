@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true })
 
 router.get('/', function (req, res) {
-    console.log("sup")
+    res.json({hello : "hello"})
 })
 
 app.use("/", router)
