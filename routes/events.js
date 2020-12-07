@@ -52,6 +52,10 @@ router.route('/get')
             query['tag'] = req.query.tag
             idQuery = true
         }
+        
+        if (JSON.stringify(req.query) == JSON.stringify({})) {
+            idQuery = true
+        }
 
         Event.find(req.query, (err, Event) => {
             if (err) {
