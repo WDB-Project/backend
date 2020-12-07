@@ -81,6 +81,19 @@ router.route("/create")
             }
         })
     })
+
+router.route("/get_myevents")
+    .get((req, res) => {
+        User.findById(req.query.id, (err, user) => {
+            Event.find({'_id': {$in: user.myEvents}}, (err, Events) => {
+                if (err) {
+                    res.send(err)
+                } else {
+                    res.json(Events)
+                }
+            })
+        })
+    })
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
 // on postman, send in the auth token in the form "Bearer <token>" in the request headers
 function verifyAuthToken(req, res, next) {

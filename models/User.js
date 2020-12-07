@@ -24,7 +24,7 @@ const userSchema = new Schema({
         required: false,
     },
     myEvents: {
-        type: [String],
+        type: Array,
         required: false
     }
 }, {collection: 'authCollection'})
