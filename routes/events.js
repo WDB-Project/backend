@@ -3,14 +3,16 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const Event = require('../models/Event');
 const jwt = require('jsonwebtoken')
+
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
 
-// router.use('/create', verifyAuthToken)
-// router.use('/signup', verifyAuthToken)
+router.use('/create', verifyAuthToken)
+router.use('/signup', verifyAuthToken)
 
+// Create events
 router.route('/create')
-    .post(function (req, res, next) { // create event
+    .post(function (req, res, next) { 
         
         const attributes = req.body
         console.log(req.body)
@@ -29,29 +31,33 @@ router.route('/create')
         });
     })
 
-// Return events
+// Get events
 router.route('/get')
     .get((req, res) => {
         
         const query = req.query
+        var idQuery = false
 
         if ('startDate' in req.query) {
             query['startDate'] = { $gt: req.query.startDate }
+            idQuery = true
         }
 
         if ('endDate' in req.query) {
             query['endDate'] = { $lt: req.query.endDate }
+            idQuery = true
         }
         
-        if('tag' in req.query) {
+        if ('tag' in req.query) {
             query['tag'] = req.query.tag
+            idQuery = true
         }
 
         Event.find(req.query, (err, Event) => {
             if (err) {
                 console.log(err)
                 res.sendStatus(404)
-            } else if (Event.length == 1) {
+            } else if (!idQuery) {
                 console.log(`Single value for ID: ${Event[0]._id}`)
                 res.json(Event)
             } else {
