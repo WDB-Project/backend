@@ -25,8 +25,19 @@ router.route('/basic')
 //user joins event
 router.route('/join')
     .put((req, res) => {
-        User.findOneAndUpdate({'_id' : req.body.id}, {'events': req.body.events}, (err, result) => {
+        User.findByIdAndUpdate(req.body.id, {$push: {'events': req.body.event}}, (err, result) => {
             if (err) {
+                res.send(err)
+            } else {
+                res.json(result)
+            }
+        })
+    })
+
+router.route("leave")
+    .put((req, res) => {
+        User.findByIdAndUpdate(req.body.id, {$pullAll : {"events": [req.body.event]}}, (err, result) => {
+            if (err) { 
                 res.send(err)
             } else {
                 res.json(result)

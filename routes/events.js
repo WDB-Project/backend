@@ -84,9 +84,7 @@ router.route('/get')
 // Volunteer signup
 router.route('/signup')
     .put((req, res) => {
-        var eventID = req.body.id
-        var volunteer = req.body.volunteer
-        Event.findByIdAndUpdate({'_id' : eventID}, {$push: {'volunteers': volunteer}}, (err, result) => {
+        Event.findByIdAndUpdate(req.body.id, {$push: {'volunteers': req.body.volunteer}}, (err, result) => {
             if (err) {
                 res.send(err)
             } else {
@@ -98,7 +96,7 @@ router.route('/signup')
 
 router.route('/leave')
     .put((req, res) => {
-        Event.findByIdAndUpdate({'_id' : req.body.id}, {$pullAll: { volunteers: [req.body.volunteer]}}, (err, result) => {
+        Event.findByIdAndUpdate(req.body.id , {$pullAll: { volunteers: [req.body.volunteer]}}, (err, result) => {
             if (err) {
                 res.send(err)
             } else {
