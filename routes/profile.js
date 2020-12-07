@@ -34,7 +34,7 @@ router.route('/join')
         })
     })
 
-router.route("leave")
+router.route("/leave")
     .put((req, res) => {
         User.findByIdAndUpdate(req.body.id, {$pullAll : {"events": [req.body.event]}}, (err, result) => {
             if (err) { 
