@@ -43,7 +43,7 @@ const eventSchema = new Schema({
         required: false,
     },
     volunteers: {
-        type: [String],
+        type: Array,
         required: false,
     }
 }, {collection: 'eventsCollections'})
