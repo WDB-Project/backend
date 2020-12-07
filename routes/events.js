@@ -26,7 +26,7 @@ router.route('/create')
                 res.send(err)
                 console.log(err)
             } else {
-                res.send('success')
+                res.json({message: "success", id: event._id})
             }
         });
     })
