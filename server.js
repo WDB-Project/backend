@@ -25,6 +25,8 @@ router.get('/', function (req, res) {
     console.log("sup")
 })
 
+app.use("/", router)
+
 const eventsRouter = require('./routes/events.js')
 app.use('/events', eventsRouter);
 
