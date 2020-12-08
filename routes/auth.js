@@ -38,7 +38,7 @@ router.route('/register')
                                 if (isImageUrl(picture)) {
                                     user.profilepic = picture
                                 }
-                            }
+                            } 
                             
                             user.save((err)=>{
                                 if (err){

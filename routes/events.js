@@ -15,7 +15,6 @@ router.route('/create')
     .post(function (req, res, next) { 
         
         const attributes = req.body
-        console.log(req.body)
 
         attributes['volunteers'] = []
 
@@ -57,7 +56,7 @@ router.route('/get')
             idQuery = true
         }
 
-        Event.find(req.query, (err, Event) => {
+        Event.find(req.query,).sort({'startDate': 'asc'}).exec((err, Event) => {
             if (err) {
                 console.log(err)
                 res.sendStatus(404)
@@ -108,6 +107,7 @@ router.route('/leave')
             }
         })
     })
+
 // middleware function that can be added to each route where a user is required (then inside the route you can access the user and check their account)
 // on postman, send in the auth token in the form "Bearer <token>" in the request headers
 function verifyAuthToken(req, res, next) {

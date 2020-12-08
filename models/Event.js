@@ -18,9 +18,25 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
-    location: {
+    addressOne: {
         type: String,
-        required: true,
+        required: false
+    },
+    addressTwo: {
+        type: String,
+        required: false
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    zip: {
+        type: String,
+        required: false
     },
     organization: {
         type: String,
