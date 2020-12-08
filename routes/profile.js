@@ -75,7 +75,7 @@ router.route("/leave")
     })
 
 
-router.route('/get_events')
+router.route('/get-events')
     .get((req, res) => {
         User.findById(req.query.id, (err, userProfile) => {
             const currentDate = Date.now()
@@ -111,7 +111,7 @@ router.route("/create")
         })
     })
 
-router.route("/get_myevents")
+router.route("/get-myevents")
     .get((req, res) => {
         User.findById(req.query.id, (err, user) => {
             Event.find({'_id': {$in: user.myEvents}}, (err, Events) => {
