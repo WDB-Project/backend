@@ -114,11 +114,12 @@ router.route('/delete')
         Event.findByIdAndDelete(req.query.id, (err) => {
             if (err) res.send(err)
             User.updateMany({}, {$pullAll: { events: [req.query.id]}}, (err) => {
-                res.send(err)
+                if (err) res.send(err)
             })
-            User.mapReduce({}, {$pullAll: {myEvents: [req.query.id]}}, (err) => {
-                res.send(err)
+            User.updateMany({}, {$pullAll: {myEvents: [req.query.id]}}, (err) => {
+                if(err) res.send(err)
             })
+            res.json({succeeded: true})
         })
     })
 
