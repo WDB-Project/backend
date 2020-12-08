@@ -111,12 +111,12 @@ router.route('/leave')
 
 router.route('/delete')
     .delete((req, res) => {
-        Event.findByIdAndDelete(req.body.id, (err) => {
+        Event.findByIdAndDelete(req.query.id, (err) => {
             if (err) res.send(err)
-            User.updateMany({}, {$pullAll: { events: [req.body.id]}}, (err) => {
+            User.updateMany({}, {$pullAll: { events: [req.query.id]}}, (err) => {
                 res.send(err)
             })
-            User.mapReduce({}, {$pullAll: {myEvents: [req.body.id]}}, (err) => {
+            User.mapReduce({}, {$pullAll: {myEvents: [req.query.id]}}, (err) => {
                 res.send(err)
             })
         })
