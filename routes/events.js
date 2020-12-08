@@ -15,7 +15,6 @@ router.route('/create')
     .post(function (req, res, next) { 
         
         const attributes = req.body
-        console.log(req.body)
 
         attributes['volunteers'] = []
 
