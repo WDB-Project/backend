@@ -7,6 +7,7 @@ const Event = require('../models/Event')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+const isImageUrl = require('is-image-url');
 
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
 const secretKey = "randomSecretVal"
@@ -59,6 +60,31 @@ router.route('/basicold')
     }
 )
 
+router.route('/updateProfilePic')
+    .post((req, res) => {
+        let picture = req.body.pfp
+        console.log("UPDATE PROFILE PIC")
+        console.log(picture)
+        if (picture != "") {
+            if (isImageUrl(picture)) {
+                User.findByIdAndUpdate(req.user.uid, { profilepic: picture }, (err, result) => {
+                    if (err) {
+                        res.send(err)
+                    } else {
+                        console.log("found")
+                        res.json({message: "success", result})
+                    }
+                })
+            } else {
+                res.statusCode(404)
+            } 
+        } else {
+            res.statusCode(404)
+        }
+        
+
+    }
+)
 
 //user joins event
 router.route('/join')
@@ -141,6 +167,7 @@ function verifyAuthToken(req, res, next) {
         const token = tokenString.split(' ')[1]
         jwt.verify(token, secretKey, (err, user) => {
             if (err) {
+                console.log("FAKE")
               return res.sendStatus(403)
             } 
             req.user = user
