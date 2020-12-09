@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const Event = require('../models/Event');
+const User = require("../models/User")
 const jwt = require('jsonwebtoken')
 
 // TODO: save this secret in some environment variable that isn't public (or obfuscate code)
@@ -105,6 +106,20 @@ router.route('/leave')
             } else {
                 res.json(result)
             }
+        })
+    })
+
+router.route('/delete')
+    .delete((req, res) => {
+        Event.findByIdAndDelete(req.query.id, (err) => {
+            if (err) res.send(err)
+            User.updateMany({}, {$pullAll: { events: [req.query.id]}}, (err) => {
+                if (err) res.send(err)
+            })
+            User.updateMany({}, {$pullAll: {myEvents: [req.query.id]}}, (err) => {
+                if(err) res.send(err)
+            })
+            res.json({succeeded: true})
         })
     })
 
