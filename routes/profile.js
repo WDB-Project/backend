@@ -33,7 +33,7 @@ router.route('/basic')
                         allEvents.past.push(event)
                     }
                 }
-                Event.find({'_id': {$in: userProfile.myEvents}}, (err, Events2) => {
+                Event.find({'_id': {$in: userProfile.myEvents}}).sort({'startDate': 'asc'}).exec((err, Events2) => {
                     if (err) {
                         res.send(err)
                     } 
