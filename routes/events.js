@@ -26,6 +26,7 @@ router.route('/create')
                 res.send(err)
                 console.log(err)
             } else {
+                console.log("successful create")
                 res.json({message: "success", id: event._id})
             }
         });
@@ -36,6 +37,7 @@ router.route('/get')
     .get((req, res) => {
         
         const query = req.query
+        console.log(req.params)
         var idQuery = false
 
         if ('startDate' in req.query) {
